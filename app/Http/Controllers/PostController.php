@@ -14,17 +14,6 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Return Boolean
-//        Gate::allows('admin');
-//        request()->user()->can('admin');
-//        request()->user()->cannot('admin');
-
-        // Perform Full Auth
-//        $this->authorize('admin');
-        //403
-        //THIS ACTION IS UNAUTHORIZED.
-        // for non admin
-
         return view('posts.index', [
             'posts' => (new Post)->latest()->filter(request(['search', 'category', 'author']))
                 ->paginate(6)->withQueryString() // simplePaginate(6) for simple version
@@ -37,5 +26,4 @@ class PostController extends Controller
             'post' => $post
         ]);
     }
-
 }
