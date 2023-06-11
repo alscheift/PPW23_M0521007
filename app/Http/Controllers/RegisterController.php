@@ -15,7 +15,6 @@ class RegisterController extends Controller
 
     public function store()
     {
-        // create the user
         $attributes = request()->validate([
             'name' => 'required|max:255',
             'username' => 'required|max:255|min:3|unique:users,username',
@@ -26,6 +25,6 @@ class RegisterController extends Controller
         $user = User::create($attributes);
 
         auth()->login($user);
-        return redirect('/')->with('success', 'Your account has been created.'); // flash data will be available for the next request
+        return redirect('/')->with('success', 'Your account has been created.');
     }
 }

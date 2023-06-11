@@ -9,30 +9,10 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id']; //guarded is the opposite of fillable
+    protected $guarded = ['id'];
+    protected $with = ['category', 'author'];
 
-    protected $with = ['category', 'author']; // eager loading
-    //fillable is what allowed to be mass assigned
-    // Post::create([
-    //     'title' => 'My First Post',
-    //     'excerpt' => 'My First Post Excerpt',
-    //     'body' => 'My First Post Body',
-    // ]);
-    /*
-    in php artisan thinker
-
-    Post::create([ 'title' => 'My First Post','excerpt' => 'My First Post Excerpt','body' => 'My First Post Body']);
-
-    */
-
-    /*
-    protected $fillable = [
-         'title',
-         'excerpt',
-         'body',
-     ];*/
-
-    public function scopeFilter($query, array $filters) // Post::newQuery()->filter()
+    public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
             return $query->where(function ($query) {
@@ -42,19 +22,22 @@ class Post extends Model
         });
 
         $query->when($filters['category'] ?? false, function ($query, $category) {
-            return $query->whereHas('category', fn($query) => $query->where('slug', $category)
+            return $query->whereHas(
+                'category',
+                fn ($query) => $query->where('slug', $category)
             );
         });
 
         $query->when($filters['author'] ?? false, function ($query, $author) {
-            return $query->whereHas('author', fn($query) => $query->where('username', $author)
+            return $query->whereHas(
+                'author',
+                fn ($query) => $query->where('username', $author)
             );
         });
     }
 
     public function getRouteKeyName(): string
     {
-        //return parent::getRouteKeyName();
         return 'slug';
     }
 
@@ -70,15 +53,11 @@ class Post extends Model
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        // hasOne, hasMany, belongsTo, belongsToMany (which one);
         return $this->belongsTo(Category::class);
-        // access it as property, not function. $post->category;
     }
 
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        // hasOne, hasMany, belongsTo, belongsToMany (which one);
         return $this->belongsTo(User::class, 'user_id');
-        // access it as property, not function. $post->user;
     }
 }

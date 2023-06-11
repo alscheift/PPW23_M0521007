@@ -44,16 +44,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // an accessor (it will be called automatically)
-    /*public function getUsernameAttribute(string $username): string
-    {
-        return ucwords($username); // capitalize it
-    }*/
-
-    // a mutator (it will be called automatically)
     public function setPasswordAttribute(string $password): void
     {
-        // Illuminate\Support\Facades\Hash::check('password', $user->password); to check the password
         $this->attributes['password'] = bcrypt($password);
     }
 
@@ -67,7 +59,6 @@ class User extends Authenticatable
 
     public function getRouteKeyName(): string
     {
-        //return parent::getRouteKeyName();
         return 'username';
     }
 }
