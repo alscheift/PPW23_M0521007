@@ -14,7 +14,7 @@ class UserPostController extends Controller
     {
         return view('posts.index', [
             'posts' => $user->posts()->latest()->filter(request(['search', 'category', 'author']))
-                ->paginate(6)->withQueryString() // simplePaginate(6) for simple version
+                ->paginate(6)->withQueryString()
         ]);
     }
 
@@ -30,8 +30,7 @@ class UserPostController extends Controller
         return view('user.posts.create');
     }
 
-    public function store():
-    \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function store(): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         $attributes = $this->validatePost();
 

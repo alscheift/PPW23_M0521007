@@ -23,9 +23,8 @@ class SessionsController extends Controller
             'password' => ['required']
         ]);
 
-        // attempt to authenticate and log in the user
-        // based on the provided credentials
-        if (!auth()->attempt($attributes)
+        if (
+            !auth()->attempt($attributes)
             &&
             !auth()->attempt([
                 'username' => $attributes['email'],
@@ -38,7 +37,7 @@ class SessionsController extends Controller
         }
 
 
-        session()->regenerate(); // session fixation
+        session()->regenerate();
         return redirect('/')->with('success', 'Welcome Back!');
     }
 
