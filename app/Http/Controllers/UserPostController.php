@@ -31,11 +31,14 @@ class UserPostController extends Controller
         return view('user.posts.create');
     }
 
-    public function store(): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function store(): RedirectResponse
     {
         $attributes = $this->validatePost();
 
-        $attributes['thumbnail'] ??= request()->file('thumbnail')?->store('thumbnails');
+        if (request()->file('thumbnail')) {
+            $attributes['thumbnail'] = request()->file('thumbnail')?->store('thumbnails');
+        }
+        
         $attributes['user_id'] = auth()->id();
 
         Post::create($attributes);
