@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -47,7 +48,7 @@ class UserPostController extends Controller
         return view('user.posts.edit', ['post' => $post]);
     }
 
-    public function update(Post $post)
+    public function update(Post $post): RedirectResponse
     {
         $attributes = $this->validatePost($post);
 
@@ -60,7 +61,7 @@ class UserPostController extends Controller
         return redirect('/posts/' . $post->slug)->with('success', 'Successfully updated post!');
     }
 
-    public function destroy(Post $post)
+    public function destroy(Post $post): RedirectResponse
     {
         $post->delete();
         return redirect('/')->with('success', 'Successfully deleted post!');

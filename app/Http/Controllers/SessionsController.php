@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SessionsController extends Controller
 {
     //
-    public function create()
+    public function create(): View
     {
         return view('sessions.create');
     }
@@ -16,7 +18,7 @@ class SessionsController extends Controller
     /**
      * @throws ValidationException
      */
-    public function store()
+    public function store(): RedirectResponse
     {
         $attributes = request()->validate([
             'email' => ['required'],
@@ -41,7 +43,7 @@ class SessionsController extends Controller
         return redirect('/')->with('success', 'Welcome Back!');
     }
 
-    public function destroy()
+    public function destroy(): RedirectResponse
     {
         auth()->logout();
         return redirect('/')->with('success', 'Goodbye!');

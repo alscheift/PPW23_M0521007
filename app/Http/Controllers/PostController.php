@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('posts.index', [
             'posts' => (new Post)->latest()->filter(request(['search', 'category', 'author']))
@@ -20,7 +20,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function show(Post $post): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function show(Post $post): View
     {
         return view('posts.show', [
             'post' => $post
