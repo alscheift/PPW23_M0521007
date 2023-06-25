@@ -29,8 +29,6 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/authors/{user}', [UserPostController::class, 'show']);
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
-Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
-
 // Register & Login
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisterController::class, 'create']);
@@ -43,6 +41,8 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 
 // User section
 Route::middleware('auth')->group(function () {
+    Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
+
     Route::get('user/posts', [UserPostController::class, 'index']);
     Route::post('user/posts', [UserPostController::class, 'store']);
     Route::get('user/posts/create', [UserPostController::class, 'create']);
