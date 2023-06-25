@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -65,5 +66,20 @@ class Post extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    protected function body(): Attribute
+    {
+        return Attribute::make(
+            get: function (string $value) {
+
+                $lines = explode(PHP_EOL, $value);
+                $wrappedLines = array_map(function ($line) {
+                    return '<p class="text-justify">' . trim($line) . '</p>';
+                }, $lines);
+
+                return implode('', $wrappedLines);
+            }
+        );
     }
 }
