@@ -27,6 +27,27 @@
                             </h5>
                         </div>
                     </div>
+                    <div class="flex justify-between  mt-4">
+                        <div class="px-6 py-4 whitespace-nowrap ">
+                            <a href="/user/posts/{{$post->slug}}/edit">
+                                <button
+                                    class="text-blue-400 hover:text-white text-s py-1 px-4 rounded-xl hover:bg-blue-400 transition ease-in-out duration-150"
+                                >
+                                    Edit Post
+                                </button>
+                            </a>
+                        </div>
+                        <div class="px-6 py-4 whitespace-nowrap">
+                            <form action="/user/posts/{{$post->slug}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="inline-block text-red-500 hover:text-white hover:bg-red-400 text-white text-s py-1 px-4 rounded-xl hover:bg-red-600 transition ease-in-out duration-150">
+                                    Delete Post
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-span-8">
@@ -63,6 +84,8 @@
                 </div>
 
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
+
+
                     @include('posts._add-comment-form')
 
                     @foreach($post->comments->sortByDesc('created_at') as $comment)
