@@ -48,6 +48,16 @@ class Post extends Model
         return 'slug';
     }
 
+    public function getImagePath(): string
+    {
+        $defaultUrl = 'https://picsum.photos/seed/' . $this->id . '/1100/860';
+        $thumbnailUrl = 'storage/' . $this->thumbnail;
+
+        if ($this->thumbnail && file_exists(public_path($thumbnailUrl)))
+            return asset($thumbnailUrl);
+        return $defaultUrl;
+    }
+
     public function latest($column = 'created_at')
     {
         return $this->orderBy($column, 'desc');

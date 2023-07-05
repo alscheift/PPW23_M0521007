@@ -3,7 +3,7 @@
     <div class="py-6 px-5 lg:flex">
         <div class="flex-1 lg:mr-8">
             <img
-                src="{{isset($post->thumbnail)&&asset('storage/'.$post->thumbnail)?asset('storage/'.$post->thumbnail): 'https://picsum.photos/seed/'.$post->id.'/1100/860'}}"
+                src="{{$post->getImagePath()}}"
                 alt="Blog Post illustration" class="rounded-xl">
         </div>
         {{--TODO--}}

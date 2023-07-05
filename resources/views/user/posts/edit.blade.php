@@ -13,7 +13,7 @@
                     <x-form.input name="thumbnail" type="file" :required='0'/>
                 </div>
                 <img
-                    src="{{isset($post->thumbnail)&&asset('storage/'.$post->thumbnail)?asset('storage/'.$post->thumbnail): 'https://picsum.photos/seed/'.$post->id.'/1100/860'}}"
+                    src="{{$post->getImagePath()}}"
                     alt="" class="rounded-xl" width="100">
             </div>
 
@@ -21,9 +21,10 @@
                 <x-form.label name="category_id"/>
 
                 <select name="category_id" id="category_id" class="p-2 rounded" required>
-                    @foreach (\App\Models\Category::all() as $category)
+                    @foreach ($categories as $category)
                         <option
-                            value="{{ $category->id }}" {{old('category_id',$post->category_id)===$category->id?" selected ":""}}>{{ ucwords($category->name) }}</option>
+                            value="{{ $category->id }}" @selected(old('category_id',$post->category_id)==$category->id)
+                        >{{ ucwords($category->name) }}</option>
                     @endforeach
                 </select>
 
