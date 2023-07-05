@@ -97,4 +97,17 @@ class Post extends Model
             }
         );
     }
+
+    protected function slug(): Attribute
+    {
+        return Attribute::make(
+            set: function (string $value) {
+                $slug = str_replace(' ', '-', $value);
+                $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug);
+                return strtolower($slug);
+            }
+        );
+    }
+
+    
 }
