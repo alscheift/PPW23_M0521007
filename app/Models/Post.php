@@ -87,7 +87,7 @@ class Post extends Model
     {
         return Attribute::make(
             get: function (string $value) {
-
+                $value = htmlspecialchars($value);
                 $lines = explode(PHP_EOL, $value);
                 $wrappedLines = array_map(function ($line) {
                     return '<p class="text-justify">' . trim($line) . '</p>';
