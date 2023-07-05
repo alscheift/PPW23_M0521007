@@ -26,8 +26,8 @@ use MailchimpMarketing\ApiClient;
 
 
 Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/authors/{user}', [UserPostController::class, 'show']);
-Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+Route::get('/authors/{user}', [UserPostController::class, 'show'])->name('user.posts.show');
+Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
 // Register & Login
 Route::middleware('guest')->group(function () {
@@ -43,11 +43,11 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 Route::middleware('auth')->group(function () {
     Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
-    Route::get('user/posts', [UserPostController::class, 'index']);
-    Route::post('user/posts', [UserPostController::class, 'store']);
-    Route::get('user/posts/create', [UserPostController::class, 'create']);
-    Route::get('user/posts/{post}/edit', [UserPostController::class, 'edit']);
-    Route::patch('user/posts/{post}', [UserPostController::class, 'update']);
-    Route::delete('user/posts/{post}', [UserPostController::class, 'destroy']);
+    Route::get('user/posts', [UserPostController::class, 'index'])->name('user.posts.index');
+    Route::post('user/posts', [UserPostController::class, 'store'])->name('user.posts.store');
+    Route::get('user/posts/create', [UserPostController::class, 'create'])->name('user.posts.create');
+    Route::get('user/posts/{post}/edit', [UserPostController::class, 'edit'])->name('user.posts.edit');
+    Route::patch('user/posts/{post}', [UserPostController::class, 'update'])->name('user.posts.update');
+    Route::delete('user/posts/{post}', [UserPostController::class, 'destroy'])->name('user.posts.destroy');
 });
 
