@@ -68,6 +68,11 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function getRawBody()
+    {
+        return $this->getRawOriginal('body');
+    }
+
     protected function body(): Attribute
     {
         return Attribute::make(
