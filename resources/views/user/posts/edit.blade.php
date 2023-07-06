@@ -1,5 +1,5 @@
 <x-layout>
-    <x-setting heading="Publish New Post: {{$post->title}}">
+    <x-setting heading="Publish New Post: {{$post->title}}" route="user">
         <form method="POST" action="/user/posts/{{$post->slug}}" enctype="multipart/form-data">
             @csrf
             @method('patch')
