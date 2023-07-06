@@ -34,7 +34,7 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisterController::class, 'create']);
     Route::post('register', [RegisterController::class, 'store']);
 
-    Route::get('login', [SessionsController::class, 'create']);
+    Route::get('login', [SessionsController::class, 'create'])->name('login');
     Route::post('login', [SessionsController::class, 'store']);
 });
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
