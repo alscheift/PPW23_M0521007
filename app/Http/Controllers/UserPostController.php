@@ -14,12 +14,13 @@ class UserPostController extends Controller
 {
     public function show(User $user): View
     {
-        $userPosts = $user->posts()->latest()->filter(request(['search', 'category', 'author']))
+        // user posts
+        $posts = $user->posts()->latest()->filter(request(['search', 'category', 'author']))
             ->paginate(6)->withQueryString();
 
         return view(
             'posts.index',
-            compact('userPosts', 'user'));
+            compact('posts', 'user'));
     }
 
     public function index(): View
