@@ -31,6 +31,12 @@
                         </div>
                     </x-slot>
                     <x-dropdown-item
+                        href="/admin"
+                        :active="request()->is('/admin')"
+                    >Admin Page
+                    </x-dropdown-item>
+
+                    <x-dropdown-item
                         href="/user/posts"
                         :active="request()->is('/user/posts')"
                     >My Posts

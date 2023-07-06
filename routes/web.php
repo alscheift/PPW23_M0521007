@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
@@ -51,3 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('user/posts/{post}', [UserPostController::class, 'destroy'])->name('user.posts.destroy');
 });
 
+// Admin Section
+Route::get('admin/posts', [AdminPageController::class, 'index'])->name('admin.index.posts');
+Route::get('admin/users', [AdminPageController::class, 'index'])->name('admin.index.users');
+Route::get('admin/comments', [AdminPageController::class, 'index'])->name('admin.index.comments');
