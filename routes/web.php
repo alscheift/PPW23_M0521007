@@ -55,4 +55,10 @@ Route::middleware('admin')->group(function () {
     Route::get('admin/posts', [AdminPageController::class, 'index'])->name('admin.index.posts');
     Route::get('admin/users', [AdminPageController::class, 'index'])->name('admin.index.users');
     Route::get('admin/comments', [AdminPageController::class, 'index'])->name('admin.index.comments');
+
+    // Delete post, user, comment
+    Route::delete('admin/posts/{post}', [AdminPageController::class, 'destroy'])->name('admin.posts.destroy');
+    Route::delete('admin/users/{user}', [AdminPageController::class, 'destroy'])->name('admin.users.destroy');
+    Route::delete('admin/comments/{comment}', [AdminPageController::class, 'destroy'])->name('admin.comments.destroy');
+    
 });

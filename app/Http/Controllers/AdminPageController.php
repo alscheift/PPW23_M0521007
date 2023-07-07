@@ -42,4 +42,33 @@ class AdminPageController extends Controller
         }
         return view('admin.index', compact('items', 'var'));
     }
+
+    public function destroy()
+    {
+        // if not admin
+        if (!(auth()->user()->can('admin')))
+            return redirect()->back();
+
+        $url = \request()->path();
+        $segments = explode('/', $url);
+        $var = $segments[1] ?? 'index';
+        $id = $segments[2] ?? null;
+        if ($var == 'posts') {
+            $post = Post::findOrFail($id);
+            $post->delete();
+            return redirect()->route('admin.index.posts')->with('success', 'Post deleted successfully');
+        } elseif ($var == 'users') {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect()->route('admin.index.users')->with('success', 'User deleted successfully');
+        } elseif ($var == 'comments') {
+            $comment = Comment::findOrFail($id);
+            $comment->delete();
+            return redirect()->route('admin.index.comments')->with('success', 'Comment deleted successfully');
+        }
+
+        return redirect()->route('admin.index');
+    }
+
+
 }
