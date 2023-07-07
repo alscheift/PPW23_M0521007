@@ -1,15 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminPageController;
-use App\Http\Controllers\AdminPostController;
-use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\UserPostController;
 use App\Models\User;
 use App\Http\Controllers\PostController;
-use App\Services\MailchimpNewsletter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use MailchimpMarketing\ApiClient;
@@ -53,6 +50,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin Section
+Route::get('admin', [AdminPageController::class, 'index'])->name('admin.index.posts');
 Route::get('admin/posts', [AdminPageController::class, 'index'])->name('admin.index.posts');
 Route::get('admin/users', [AdminPageController::class, 'index'])->name('admin.index.users');
 Route::get('admin/comments', [AdminPageController::class, 'index'])->name('admin.index.comments');
