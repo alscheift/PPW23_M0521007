@@ -50,7 +50,9 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin Section
-Route::get('admin', [AdminPageController::class, 'index'])->name('admin.index.posts');
-Route::get('admin/posts', [AdminPageController::class, 'index'])->name('admin.index.posts');
-Route::get('admin/users', [AdminPageController::class, 'index'])->name('admin.index.users');
-Route::get('admin/comments', [AdminPageController::class, 'index'])->name('admin.index.comments');
+Route::middleware('admin')->group(function () {
+    Route::get('admin', [AdminPageController::class, 'index'])->name('admin.index.posts');
+    Route::get('admin/posts', [AdminPageController::class, 'index'])->name('admin.index.posts');
+    Route::get('admin/users', [AdminPageController::class, 'index'])->name('admin.index.users');
+    Route::get('admin/comments', [AdminPageController::class, 'index'])->name('admin.index.comments');
+});
