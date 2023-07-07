@@ -10,19 +10,21 @@
                                 {{ $post->title}}
                             </a>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <a class="text-s text-blue-400" href="/user/posts/{{$post->slug}}/edit">
-                                Edit
-                            </a>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <form action="/user/posts/{{$post->slug}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="text-s text-red-400" type="submit">Delete</button>
-                            </form>
-                        </td>
+                        @can('userownpost',$post)
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <a class="text-s text-blue-400" href="/user/posts/{{$post->slug}}/edit">
+                                    Edit
+                                </a>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <form action="/user/posts/{{$post->slug}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="text-s text-red-400" type="submit">Delete</button>
+                                </form>
+                            </td>
                     </tr>
+                    @endcan
                 @endforeach
                 <!-- Additional rows go here -->
                 </tbody>
