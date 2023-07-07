@@ -38,7 +38,7 @@ Route::middleware('guest')->group(function () {
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 // User section
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'userownpost'])->group(function () {
     Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
     Route::get('user/posts', [UserPostController::class, 'index'])->name('user.posts.index');
