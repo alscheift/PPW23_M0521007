@@ -17,6 +17,7 @@ class AdminOnly
     {
         // if not admin
         if (!auth()->user()->can('admin')) {
+
             abort(403);
         }
 

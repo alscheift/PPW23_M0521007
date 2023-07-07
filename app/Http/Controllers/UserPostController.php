@@ -59,6 +59,7 @@ class UserPostController extends Controller
     {
         if (auth()->user()->cannot('userownpost', $post))
             return redirect()->back()->with('error', 'You are not authorized to edit this post.');
+
         $categories = Category::all();
         return view(
             'user.posts.edit',

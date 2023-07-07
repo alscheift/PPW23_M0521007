@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -15,6 +16,7 @@ class AdminPageController extends Controller
     {
         if (!(auth()->user()->can('admin')))
             return redirect()->back();
+
 
         $url = \request()->path();
         $segments = explode('/', $url);
@@ -69,6 +71,4 @@ class AdminPageController extends Controller
 
         return redirect()->route('admin.index');
     }
-
-
 }

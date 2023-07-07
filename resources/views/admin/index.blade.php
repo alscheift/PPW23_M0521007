@@ -73,7 +73,9 @@
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap">
+
                                 <form action="{{route('admin.posts.destroy',$item)}}" method="POST">
+
                                     @csrf
                                     @method('DELETE')
                                     <button class="text-s text-red-400" type="submit">Delete</button>
@@ -98,6 +100,7 @@
 
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <form action="{{route('admin.users.destroy',$item)}}" method="POST">
+
                                     @csrf
                                     @method('DELETE')
                                     <button class="text-s text-red-400" type="submit">Delete</button>
@@ -121,6 +124,7 @@
 
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <form action="{{route('admin.comments.destroy',$item)}}" method="POST">
+
                                     @csrf
                                     @method('DELETE')
                                     <button class="text-s text-red-400" type="submit">Delete</button>

@@ -19,5 +19,6 @@ class UserOwnPost
             return $next($request);
         else
             return redirect()->back();
+
     }
 }
