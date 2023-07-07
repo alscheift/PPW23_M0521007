@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AdminPageController extends Controller
 {
-    public function index(): View
+    public function index(): View|RedirectResponse
     {
+        if (!(auth()->user()->can('admin')))
+            return redirect()->back();
+
         $url = \request()->path();
         $segments = explode('/', $url);
         $items = [];
