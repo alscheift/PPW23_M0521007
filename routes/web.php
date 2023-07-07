@@ -38,8 +38,8 @@ Route::middleware('guest')->group(function () {
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 // User section
+Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store'])->middleware('auth');
 Route::middleware(['auth', 'userownpost'])->group(function () {
-    Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
     Route::get('user/posts', [UserPostController::class, 'index'])->name('user.posts.index');
     Route::post('user/posts', [UserPostController::class, 'store'])->name('user.posts.store');
