@@ -74,7 +74,7 @@
 
                             <td class="px-6 py-4 whitespace-nowrap">
 
-                                <form action="{{route('admin.posts.destroy',$item)}}" method="POST">
+                                <form action="{{route('admin.posts.destroy',$item->id)}}" method="POST">
 
                                     @csrf
                                     @method('DELETE')
@@ -99,7 +99,7 @@
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <form action="{{route('admin.users.destroy',$item)}}" method="POST">
+                                <form action="{{route('admin.users.destroy',$item->id)}}" method="POST">
 
                                     @csrf
                                     @method('DELETE')
