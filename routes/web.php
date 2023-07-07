@@ -38,15 +38,17 @@ Route::middleware('guest')->group(function () {
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 // User section
-Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store'])->middleware('auth');
-Route::middleware(['auth', 'userownpost'])->group(function () {
+Route::middleware('auth')->group(function () {
 
+    Route::post('/posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
     Route::get('user/posts', [UserPostController::class, 'index'])->name('user.posts.index');
     Route::post('user/posts', [UserPostController::class, 'store'])->name('user.posts.store');
     Route::get('user/posts/create', [UserPostController::class, 'create'])->name('user.posts.create');
-    Route::get('user/posts/{post}/edit', [UserPostController::class, 'edit'])->name('user.posts.edit');
-    Route::patch('user/posts/{post}', [UserPostController::class, 'update'])->name('user.posts.update');
-    Route::delete('user/posts/{post}', [UserPostController::class, 'destroy'])->name('user.posts.destroy');
+    Route::middleware('userownpost')->group(function () {
+        Route::get('user/posts/{post}/edit', [UserPostController::class, 'edit'])->name('user.posts.edit');
+        Route::patch('user/posts/{post}', [UserPostController::class, 'update'])->name('user.posts.update');
+        Route::delete('user/posts/{post}', [UserPostController::class, 'destroy'])->name('user.posts.destroy');
+    });
 });
 
 // Admin Section
