@@ -58,7 +58,7 @@ class UserPostController extends Controller
     public function edit(Post $post): View|RedirectResponse
     {
         if (auth()->user()->cannot('userownpost', $post))
-            return redirect()->back();
+            return redirect()->back()->with('error', 'You are not authorized to edit this post.');
         $categories = Category::all();
         return view(
             'user.posts.edit',
@@ -69,7 +69,7 @@ class UserPostController extends Controller
     public function update(Post $post): RedirectResponse
     {
         if (auth()->user()->cannot('userownpost', $post))
-            return redirect()->back();
+            return redirect()->back()->with('error', 'You are not authorized to edit this post.');
         $attributes = $this->validatePost($post);
 
         if ($attributes['thumbnail'] ?? false) {
@@ -84,7 +84,7 @@ class UserPostController extends Controller
     public function destroy(Post $post): RedirectResponse
     {
         if (auth()->user()->cannot('userownpost', $post) && auth()->user()->cannot('admin'))
-            return redirect()->back();
+            return redirect()->back()->with('error', 'You are not authorized to delete this post.');
         $post->delete();
         return redirect('/')->with('success', 'Successfully deleted post!');
     }
