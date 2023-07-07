@@ -15,9 +15,10 @@ class UserOwnPost
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->id !== $request?->post->user_id) {
-            abort(403);
-        }
-        return $next($request);
+        if (auth()->user()->can('userownpost', $request->post))
+            return $next($request);
+        else
+            return redirect()->back();
+
     }
 }

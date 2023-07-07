@@ -44,11 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::get('user/posts', [UserPostController::class, 'index'])->name('user.posts.index');
     Route::post('user/posts', [UserPostController::class, 'store'])->name('user.posts.store');
     Route::get('user/posts/create', [UserPostController::class, 'create'])->name('user.posts.create');
-    Route::middleware('userownpost')->group(function () {
-        Route::get('user/posts/{post}/edit', [UserPostController::class, 'edit'])->name('user.posts.edit');
-        Route::patch('user/posts/{post}', [UserPostController::class, 'update'])->name('user.posts.update');
-        Route::delete('user/posts/{post}', [UserPostController::class, 'destroy'])->name('user.posts.destroy');
-    });
+
+    Route::get('user/posts/{post}/edit', [UserPostController::class, 'edit'])->name('user.posts.edit');
+    Route::patch('user/posts/{post}', [UserPostController::class, 'update'])->name('user.posts.update');
+    Route::delete('user/posts/{post}', [UserPostController::class, 'destroy'])->name('user.posts.destroy');
+
 });
 
 // Admin Section
@@ -57,4 +57,10 @@ Route::middleware('admin')->group(function () {
     Route::get('admin/posts', [AdminPageController::class, 'index'])->name('admin.index.posts');
     Route::get('admin/users', [AdminPageController::class, 'index'])->name('admin.index.users');
     Route::get('admin/comments', [AdminPageController::class, 'index'])->name('admin.index.comments');
+
+    // Delete post, user, comment
+    Route::delete('admin/posts/{post}', [AdminPageController::class, 'destroy'])->name('admin.posts.destroy');
+    Route::delete('admin/users/{user}', [AdminPageController::class, 'destroy'])->name('admin.users.destroy');
+    Route::delete('admin/comments/{comment}', [AdminPageController::class, 'destroy'])->name('admin.comments.destroy');
+
 });

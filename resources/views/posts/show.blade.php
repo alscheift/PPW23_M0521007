@@ -28,25 +28,34 @@
                         </div>
                     </div>
                     <div class="flex justify-between  mt-4">
-                        <div class="px-6 py-4 whitespace-nowrap ">
-                            <a href="/user/posts/{{$post->slug}}/edit">
-                                <button
-                                    class="text-blue-400 hover:text-white text-s py-1 px-4 rounded-xl hover:bg-blue-400 transition ease-in-out duration-150"
-                                >
-                                    Edit Post
-                                </button>
-                            </a>
-                        </div>
-                        <div class="px-6 py-4 whitespace-nowrap">
-                            <form action="/user/posts/{{$post->slug}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                        class="inline-block text-red-500 hover:text-white hover:bg-red-400 text-white text-s py-1 px-4 rounded-xl hover:bg-red-600 transition ease-in-out duration-150">
-                                    Delete Post
-                                </button>
-                            </form>
-                        </div>
+                        @canany(['admin','userownpost'],$post)
+                            <div class="px-6 py-4 whitespace-nowrap ">
+                                <a href="/user/posts/{{$post->slug}}/edit">
+                                    <button
+                                        class="
+                                        @cannot('userownpost', $post)
+                                            text-gray-400 hover:text-white hover:bg-gray-500 cursor-not-allowed
+                                        @else
+                                            text-blue-400 hover:text-white hover:bg-blue-400
+                                        @endcannot
+                                             text-s py-1 px-4 rounded-xl  transition ease-in-out duration-150"
+                                    >
+                                        Edit Post
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="px-6 py-4 whitespace-nowrap">
+                                <form action="/user/posts/{{$post->slug}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="inline-block text-red-500 hover:text-white hover:bg-red-400 text-white text-s py-1 px-4 rounded-xl hover:bg-red-600 transition ease-in-out duration-150">
+                                        Delete Post
+                                    </button>
+                                </form>
+                            </div>
+                        @endcan
+
                     </div>
                 </div>
 

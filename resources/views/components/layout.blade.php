@@ -30,6 +30,13 @@
                             </div>
                         </div>
                     </x-slot>
+                    @can('admin')
+                        <x-dropdown-item
+                            href="/admin"
+                            :active="request()->is('/admin')"
+                        >Admin Page
+                        </x-dropdown-item>
+                    @endcan
                     <x-dropdown-item
                         href="/admin"
                         :active="request()->is('/admin')"
