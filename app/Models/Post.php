@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -47,6 +48,16 @@ class Post extends Model
         return 'slug';
     }
 
+    public function getImagePath(): string
+    {
+        $defaultUrl = 'https://picsum.photos/seed/' . $this->id . '/1100/860';
+        $thumbnailUrl = 'storage/' . $this->thumbnail;
+
+        if ($this->thumbnail && file_exists(public_path($thumbnailUrl)))
+            return asset($thumbnailUrl);
+        return $defaultUrl;
+    }
+
     public function latest($column = 'created_at')
     {
         return $this->orderBy($column, 'desc');
@@ -66,4 +77,37 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function getRawBody()
+    {
+        return $this->getRawOriginal('body');
+    }
+
+    protected function body(): Attribute
+    {
+        return Attribute::make(
+            get: function (string $value) {
+                $value = htmlspecialchars($value);
+                $lines = explode(PHP_EOL, $value);
+                $wrappedLines = array_map(function ($line) {
+                    return '<p class="text-justify">' . trim($line) . '</p>';
+                }, $lines);
+
+                return implode('', $wrappedLines);
+            }
+        );
+    }
+
+    protected function slug(): Attribute
+    {
+        return Attribute::make(
+            set: function (string $value) {
+                $slug = str_replace(' ', '-', $value);
+                $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug);
+                return strtolower($slug);
+            }
+        );
+    }
+
+    
 }

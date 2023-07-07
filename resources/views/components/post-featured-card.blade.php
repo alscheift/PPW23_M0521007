@@ -3,16 +3,14 @@
     <div class="py-6 px-5 lg:flex">
         <div class="flex-1 lg:mr-8">
             <img
-                src="{{isset($post->thumbnail)&&asset('storage/'.$post->thumbnail)?asset('storage/'.$post->thumbnail): 'https://picsum.photos/seed/'.$post->id.'/1100/860'}}"
+                src="{{$post->getImagePath()}}"
                 alt="Blog Post illustration" class="rounded-xl">
         </div>
         {{--TODO--}}
         <div class="flex-1 flex flex-col justify-between">
             <header class="mt-8 lg:mt-0">
                 <div class="space-x-2">
-                    <a href="/categories/{{$post->category->slug}}"
-                       class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
-                       style="font-size: 10px">{{$post->category->name}}</a>
+                    <x-category-button :category="$post->category"/>
                 </div>
 
                 <div class="mt-4">

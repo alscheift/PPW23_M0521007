@@ -9,21 +9,47 @@
             <h4 class="font-semibold mb-4">Links</h4>
 
             <ul>
-                <li>
-                    <a class="{{request()->is($route.'/posts')?'text-blue-500':''}}"
-                       href="/{{$route}}/posts"
-                    >
-                        All Posts
-                    </a>
-                </li>
+                @if($route=='user')
+                    <li>
+                        <a class="{{request()->is($route.'/posts')?'text-blue-500':''}}"
+                           href="/{{$route}}/posts"
+                        >
+                            All Posts
+                        </a>
+                    </li>
 
-                <li>
-                    <a class="{{request()->is($route.'/posts/create')?'text-blue-500':''}}"
-                       href="/{{$route}}/posts/create"
-                    >
-                        New Post
-                    </a>
-                </li>
+                    <li>
+                        <a class="{{request()->is($route.'/posts/create')?'text-blue-500':''}}"
+                           href="/{{$route}}/posts/create"
+                        >
+                            New Post
+                        </a>
+                    </li>
+                @elseif($route=='admin')
+                    <li>
+                        <a class="{{request()->is($route.'/posts')?'text-blue-500':''}}"
+                           href="/{{$route}}/posts"
+                        >
+                            All Posts
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{request()->is($route.'/users')?'text-blue-500':''}}"
+                           href="/{{$route}}/users"
+                        >
+                            All Users
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{request()->is($route.'/comments')?'text-blue-500':''}}"
+                           href="/{{$route}}/comments"
+                        >
+                            All Comments
+                        </a>
+                    </li>
+                @else
+
+                @endif
             </ul>
         </aside>
 

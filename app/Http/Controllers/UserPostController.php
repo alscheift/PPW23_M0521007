@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -13,10 +14,13 @@ class UserPostController extends Controller
 {
     public function show(User $user): View
     {
-        return view('posts.index', [
-            'posts' => $user->posts()->latest()->filter(request(['search', 'category', 'author']))
-                ->paginate(6)->withQueryString()
-        ]);
+        // user posts
+        $posts = $user->posts()->latest()->filter(request(['search', 'category', 'author']))
+            ->paginate(6)->withQueryString();
+
+        return view(
+            'posts.index',
+            compact('posts', 'user'));
     }
 
     public function index(): View
@@ -28,7 +32,12 @@ class UserPostController extends Controller
 
     public function create(): View
     {
-        return view('user.posts.create');
+        $categories = Category::all();
+
+        return view(
+            'user.posts.create',
+            compact('categories')
+        );
     }
 
     public function store(): RedirectResponse
@@ -38,7 +47,7 @@ class UserPostController extends Controller
         if (request()->file('thumbnail')) {
             $attributes['thumbnail'] = request()->file('thumbnail')?->store('thumbnails');
         }
-        
+
         $attributes['user_id'] = auth()->id();
 
         Post::create($attributes);
@@ -48,7 +57,11 @@ class UserPostController extends Controller
 
     public function edit(Post $post): View
     {
-        return view('user.posts.edit', ['post' => $post]);
+        $categories = Category::all();
+        return view(
+            'user.posts.edit',
+            compact('post', 'categories')
+        );
     }
 
     public function update(Post $post): RedirectResponse

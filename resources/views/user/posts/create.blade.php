@@ -12,9 +12,9 @@
                 <x-form.label name="category_id"/>
 
                 <select name="category_id" id="category_id" class="p-2 rounded" required>
-                    @foreach (\App\Models\Category::all() as $category)
+                    @foreach ($categories as $category)
                         <option
-                            value="{{ $category->id }}" {{old('category_id')===$category->id?" selected ":""}}>{{ ucwords($category->name) }}</option>
+                            value="{{ $category->id }}" @selected(old('category_id')==$category->id)>{{ ucwords($category->name) }}</option>
                     @endforeach
                 </select>
 

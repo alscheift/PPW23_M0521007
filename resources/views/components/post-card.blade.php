@@ -6,8 +6,8 @@
     <div>
         <div>
             <img
-                src="{{isset($post->thumbnail)&&asset('storage/'.$post->thumbnail)?asset('storage/'.$post->thumbnail): 'https://picsum.photos/seed/'.$post->id.'/1100/860'}}"
-                alt="Blog Post illustration" class="rounded-xl">
+                src="{{$post->getImagePath()}}"
+                alt=" Blog Post illustration" class="rounded-xl">
         </div>
 
         <div class="mt-8 flex flex-col justify-between">

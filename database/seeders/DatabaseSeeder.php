@@ -46,21 +46,28 @@ class DatabaseSeeder extends Seeder
             'slug' => 'work',
         ]);
 
-        Post::factory(5)->create([
+        $category4 = Category::factory()->create(
+            [
+                'name' => 'Creed',
+                'slug' => 'creed',
+            ]
+        );
+
+        Post::factory(2)->create([
             'user_id' => $user1->id,
             'category_id' => $category1->id,
         ]);
-        Post::factory(5)->create([
+        Post::factory(2)->create([
             'user_id' => $user1->id,
             'category_id' => $category2->id,
         ]);
 
-        Post::factory(5)->create([
+        Post::factory(2)->create([
             'user_id' => $user2->id,
             'category_id' => $category1->id,
         ]);
 
-        Post::factory(5)->create([
+        Post::factory(2)->create([
             'user_id' => $user2->id,
             'category_id' => $category2->id,
         ]);
@@ -68,7 +75,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => $user1->id,
             'category_id' => $category3->id,
         ]);
-        Post::factory(3)->create([
+        Post::factory(2)->create([
             'user_id' => $user2->id,
             'category_id' => $category3->id,
         ]);
